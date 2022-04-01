@@ -15,7 +15,7 @@ CREATE TABLE user
 CREATE TABLE customer
 (
     c_id INT(9) NOT NULL,
-    c_password VARCHAR(8 | 16) NOT NULL,
+    c_password VARCHAR(16) NOT NULL,
     license_num VARCHAR(10) NOT NULL,
     rental_request VARCHAR(8),
     insurance_claim_num INT(10),
@@ -27,11 +27,11 @@ CREATE TABLE customer
 CREATE TABLE staff 
 (
     s_id INT(9) NOT NULL,
-    s_password VARCHAR(8 | 16) NOT NULL,
+    s_password VARCHAR(16) NOT NULL,
     salary INT,
     start_date DATE, 
     birth_date DATE,
-    agency VARCHAR(30)
+    agency VARCHAR(30),
     FOREIGN KEY (s_id) REFERENCES User(ssn)
 );
 
@@ -69,8 +69,7 @@ CREATE TABLE rental_contract
     agency VARCHAR(30),
     car_id VARCHAR(16),
     payment_id VARCHAR(8),
-    FOREIGN KEY (payment_id) REFERENCES payment(transaction_id),
-
+    FOREIGN KEY (payment_id) REFERENCES payment(transaction_id)
 );
 
 -- Agency Table
@@ -86,7 +85,7 @@ CREATE TABLE car_supplier
 (
     cs_id VARCHAR(30) NOT NULL,
     car_model VARCHAR(10),
-    car_vin VARCAHR(30) NOT NULL,
+    car_vin VARCHAR(30) NOT NULL,
     car_brand CHAR(20),
     car_color CHAR(10),
     car_price INT,

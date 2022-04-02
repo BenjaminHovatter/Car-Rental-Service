@@ -1,15 +1,33 @@
 -- PHASE 3 Schema
+DROP DATABASE IF EXISTS car_rental_service;
+CREATE DATABASE car_rental_service;
+USE car_rental_service;
 
 -- User Table
-CREATE TABLE user
+CREATE TABLE `user`
 (
     ssn INT(9) NOT NULL,
-    phone_number INT(10),
     f_name VARCHAR(15) NOT NULL,
     l_name VARCHAR(15) NOT NULL,
-    home_address VARCHAR(30),
+	phone_number VARCHAR(20),
+    street VARCHAR(30),
+    city VARCHAR(20),
+    state CHAR(2),
+    zip INT(5),
     PRIMARY KEY(ssn)
 );
+
+-- Test Data into User Table
+INSERT INTO `user` VALUES (123456789,'Babara','MacCaffrey','781-932-9754','0 Sage Terrace','Waltham','MA',2273);
+INSERT INTO `user` VALUES (987654321,'Ines','Brushfield','804-427-9456','14187 Commercial Trail','Hampton','VA',947);
+INSERT INTO `user` VALUES (320498176,'Freddi','Boagey','719-724-7869','251 Springs Junction','Colorado Springs','CO',2967);
+INSERT INTO `user` VALUES (410923874,'Ambur','Roseburgh','407-231-8017','30 Arapahoe Terrace','Orlando','FL',457);
+INSERT INTO `user` VALUES (589783429,'Clemmie','Betchley','123-456-7890','5 Spohn Circle','Arlington','TX',3675);
+INSERT INTO `user` VALUES (689888783,'Elka','Twiddell','312-480-8498','7 Manley Drive','Chicago','IL',3073);
+INSERT INTO `user` VALUES (123443127,'Ilene','Dowson','615-641-4759','50 Lillian Crossing','Nashville','TN',1672);
+INSERT INTO `user` VALUES (893701935,'Thacher','Naseby','941-527-3977','538 Mosinee Center','Sarasota','FL',205);
+INSERT INTO `user` VALUES (959038919,'Romola','Rumgay','559-181-3744','3520 Ohio Trail','Visalia','CA',1486);
+INSERT INTO `user` VALUES (193793010,'Levy','Mynett','404-246-3370','68 Lawn Avenue','Atlanta','GA',796);
 
 -- Customer Table
 CREATE TABLE customer
@@ -18,10 +36,32 @@ CREATE TABLE customer
     c_password VARCHAR(16) NOT NULL,
     license_num VARCHAR(10) NOT NULL,
     rental_request VARCHAR(8),
-    insurance_claim_num INT(10),
-    payment FLOAT,
-    FOREIGN KEY (c_id) REFERENCES User(ssn)
+    FOREIGN KEY (c_id) REFERENCES `user`(ssn)
 );
+
+-- Test Data for Customer Table
+INSERT INTO customer VALUES (123456789,'4RZC9LyJ','UMF4VFFVSH','NHJR63CJ');
+INSERT INTO customer VALUES (320498176,'FhKHx4U6','GBEA9894WW','E84KNQRJ');
+INSERT INTO customer VALUES (410923874,'Hr9EKNeo','D2HX8Q7HUZ','9C6CUGMZ');
+INSERT INTO customer VALUES (589783429,'FAVz2Gkg','XJWLJRX6JX','SV3UG2H3');
+INSERT INTO customer VALUES (689888783,'87EPrCim','2DVXYCMBLF','JWN39PDQ');
+INSERT INTO customer VALUES (893701935,'Mb95Rvng','W64F5S7TWR','2LGR2HXW');
+INSERT INTO customer VALUES (959038919,'vrkVe7Mo','AZ7AAW26JX','8TMHE459');
+INSERT INTO customer VALUES (193793010,'ALkkR6dx','HFTGW9Y332','MA877A4R');
+
+-- Agency Table
+CREATE TABLE agency
+(
+    d_num INT NOT NULL,
+    street VARCHAR(20),
+    city VARCHAR(20),
+    state CHAR(2),
+    PRIMARY KEY(d_num)
+);
+
+-- Agency Test Data
+INSERT INTO agency VALUES ('1', '123 Main Street', 'Big City', 'TX');
+INSERT INTO agency VALUES ('2', '984 Little Street', 'Dallas', 'TX');
 
 -- Staff Table
 CREATE TABLE staff 
@@ -31,33 +71,59 @@ CREATE TABLE staff
     salary INT,
     start_date DATE, 
     birth_date DATE,
-    agency VARCHAR(30),
-    FOREIGN KEY (s_id) REFERENCES User(ssn)
+    agency INT,
+    FOREIGN KEY (s_id) REFERENCES `user`(ssn),
+    FOREIGN KEY(agency) REFERENCES agency(d_num)
 );
 
+-- Staff Test Data
+INSERT INTO staff VALUES ('123443127','kLsTSEK7', '30000', '2019-01-11','1991-09-04','1');
+INSERT INTO staff VALUES (987654321,'YePuz6V5','28000','2019-02-12','1992-05-23','2');
+
 -- Rental Request Table
-CREATE TABLE rental_request 
+CREATE TABLE rental_request
 (
     request_id VARCHAR(8) NOT NULL,
     is_approved CHAR,
-    rr_start_date DATE,
-    rr_end_date DATE,
-    car_preference INT(9),
     PRIMARY KEY(request_id)
 );
 
+INSERT INTO rental_request VALUES('JM7DUNUQ', 'Y');
+INSERT INTO rental_request VALUES('DK5UBT29', 'Y');
+
 -- Payment Table
-CREATE TABLE payment 
+CREATE TABLE payment
 (
-    transaction_id VARCHAR(8) NOT NULL,
-    card_num INT(16) NOT NULL,
+    transaction_id INT(8) NOT NULL AUTO_INCREMENT,
+    card_num CHAR(16) NOT NULL,
     exp_date DATE,
-    cardHolder INT(9),
+    card_holder INT(9),
     amount INT,
-    payment_date DATE,
     PRIMARY KEY(transaction_id),
-    FOREIGN KEY(cardHolder) REFERENCES User(ssn)
+    FOREIGN KEY(card_holder) REFERENCES customer(c_id)
 );
+
+-- Test Data for Payments
+INSERT INTO payment VALUES (1,'9646753542274646','2024-12-02', 123456789, '59');
+INSERT INTO payment VALUES (2,'8884484394877566','2024-6-30', 589783429, '36');
+
+-- Car Supplier
+CREATE TABLE car_supplier
+(
+    cs_id VARCHAR(30) NOT NULL,
+	vin VARCHAR(30) NOT NULL,
+    make VARCHAR(10),
+    model CHAR(20),
+    color CHAR(10),
+    price INT,
+    PRIMARY KEY (vin)
+);
+
+-- Test Data for Car Supplier
+INSERT INTO car_supplier VALUES('WGHK', '6WWR8XUZEW', 'Ford', 'Focus RS', 'Blue', '50000');
+INSERT INTO car_supplier VALUES('WGHK', 'LW8BYCER3R', 'Volkswagen', 'GOLF R', 'Black', '56000');
+INSERT INTO car_supplier VALUES('VJMQ', 'SSVQYA2GS9', 'Ford', 'Fiesta ST', 'Yellow', '28000');
+INSERT INTO car_supplier VALUES('VJMQ', 'PQW7WPG2R6', 'Volkswagen', 'GOLF GTI', 'White', '34000');
 
 -- Contract Table
 CREATE TABLE rental_contract 
@@ -66,38 +132,15 @@ CREATE TABLE rental_contract
     price INT,
     rc_start_date DATE,
     rc_end_date DATE,
-    agency VARCHAR(30),
-    car_id VARCHAR(16),
-    payment_id VARCHAR(8),
-    FOREIGN KEY (payment_id) REFERENCES payment(transaction_id)
+    agency INT,
+    car_id VARCHAR(30),
+	payment_id INT(8),
+    PRIMARY KEY (contract_id),
+    FOREIGN KEY (payment_id) REFERENCES payment(transaction_id),
+    FOREIGN KEY (agency) REFERENCES agency (d_num),
+    FOREIGN KEY (car_id) REFERENCES car_supplier(vin)
 );
 
--- Agency Table
-CREATE TABLE agency 
-(
-    d_num INT NOT NULL,
-    address VARCHAR(30),
-    PRIMARY KEY(d_num)
-);
-
--- Car Supplier
-CREATE TABLE car_supplier
-(
-    cs_id VARCHAR(30) NOT NULL,
-    car_model VARCHAR(10),
-    car_vin VARCHAR(30) NOT NULL,
-    car_brand CHAR(20),
-    car_color CHAR(10),
-    car_price INT,
-    PRIMARY KEY (cs_id)
-);
-
--- Address Table
-CREATE TABLE address_book
-(
-    street VARCHAR(20),
-    city VARCHAR(20),
-    state CHAR(20),
-    postal_code INT(10),
-    country CHAR(20)
-);
+-- Test Data for Rental Contracts
+INSERT INTO rental_contract VALUES('3M39L8MSE5', '100', '2022-02-01', '2022-03-01', 1, 'LW8BYCER3R', 1);
+INSERT INTO rental_contract VALUES('BX8SV4JAK4', '75', '2022-02-16', '2022-03-16', 2, '6WWR8XUZEW', 2);

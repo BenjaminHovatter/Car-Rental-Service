@@ -29,25 +29,39 @@ INSERT INTO `user` VALUES (893701935,'Thacher','Naseby','941-527-3977','538 Mosi
 INSERT INTO `user` VALUES (959038919,'Romola','Rumgay','559-181-3744','3520 Ohio Trail','Visalia','CA',1486);
 INSERT INTO `user` VALUES (193793010,'Levy','Mynett','404-246-3370','68 Lawn Avenue','Atlanta','GA',796);
 
+-- Rental Request Table
+CREATE TABLE rental_request
+(
+    request_id VARCHAR(8) NOT NULL,
+    is_approved CHAR,
+    PRIMARY KEY(request_id)
+);
+
+-- Initial Rents Babara MacAffrey & Freddi Boagey
+INSERT INTO rental_request VALUES('JM7DUNUQ', 'Y');
+INSERT INTO rental_request VALUES('DK5UBT29', 'Y');
+
 -- Customer Table
 CREATE TABLE customer
 (
     c_id INT(9) NOT NULL,
     c_password VARCHAR(16) NOT NULL,
     license_num VARCHAR(10) NOT NULL,
-    rental_request VARCHAR(8),
+    request_id VARCHAR(8),
     FOREIGN KEY (c_id) REFERENCES `user`(ssn)
 );
 
 -- Test Data for Customer Table
-INSERT INTO customer VALUES (123456789,'4RZC9LyJ','UMF4VFFVSH','NHJR63CJ');
-INSERT INTO customer VALUES (320498176,'FhKHx4U6','GBEA9894WW','E84KNQRJ');
-INSERT INTO customer VALUES (410923874,'Hr9EKNeo','D2HX8Q7HUZ','9C6CUGMZ');
-INSERT INTO customer VALUES (589783429,'FAVz2Gkg','XJWLJRX6JX','SV3UG2H3');
-INSERT INTO customer VALUES (689888783,'87EPrCim','2DVXYCMBLF','JWN39PDQ');
-INSERT INTO customer VALUES (893701935,'Mb95Rvng','W64F5S7TWR','2LGR2HXW');
-INSERT INTO customer VALUES (959038919,'vrkVe7Mo','AZ7AAW26JX','8TMHE459');
-INSERT INTO customer VALUES (193793010,'ALkkR6dx','HFTGW9Y332','MA877A4R');
+INSERT INTO customer VALUES (123456789,'4RZC9LyJ','UMF4VFFVSH','JM7DUNUQ');
+INSERT INTO customer VALUES (320498176,'FhKHx4U6','GBEA9894WW','DK5UBT29');
+
+-- Customers who have not placed rental requests
+INSERT INTO customer VALUES (410923874,'Hr9EKNeo','D2HX8Q7HUZ','');
+INSERT INTO customer VALUES (589783429,'FAVz2Gkg','XJWLJRX6JX','');
+INSERT INTO customer VALUES (689888783,'87EPrCim','2DVXYCMBLF','');
+INSERT INTO customer VALUES (893701935,'Mb95Rvng','W64F5S7TWR','');
+INSERT INTO customer VALUES (959038919,'vrkVe7Mo','AZ7AAW26JX','');
+INSERT INTO customer VALUES (193793010,'ALkkR6dx','HFTGW9Y332','');
 
 -- Agency Table
 CREATE TABLE agency
@@ -80,25 +94,14 @@ CREATE TABLE staff
 INSERT INTO staff VALUES ('123443127','kLsTSEK7', '30000', '2019-01-11','1991-09-04','1');
 INSERT INTO staff VALUES (987654321,'YePuz6V5','28000','2019-02-12','1992-05-23','2');
 
--- Rental Request Table
-CREATE TABLE rental_request
-(
-    request_id VARCHAR(8) NOT NULL,
-    is_approved CHAR,
-    PRIMARY KEY(request_id)
-);
-
-INSERT INTO rental_request VALUES('JM7DUNUQ', 'Y');
-INSERT INTO rental_request VALUES('DK5UBT29', 'Y');
-
 -- Payment Table
 CREATE TABLE payment
 (
     transaction_id INT(8) NOT NULL AUTO_INCREMENT,
     card_num CHAR(16) NOT NULL,
-    exp_date DATE,
-    card_holder INT(9),
-    amount INT,
+    exp_date DATE NOT NULL,
+    card_holder INT(9) NOT NULL,
+    amount INT NOT NULL,
     PRIMARY KEY(transaction_id),
     FOREIGN KEY(card_holder) REFERENCES customer(c_id)
 );

@@ -114,7 +114,7 @@ CREATE TABLE payment
     CONSTRAINT PK_Payment UNIQUE (transaction_id),
     CONSTRAINT Check_Exp_Date CHECK (SELECT P.exp_date
                                      FROM payment AS P
-                                     WHERE P.exp_date > CurrentDate())
+                                     WHERE P.exp_date > Current_Date())
 );
 
 -- Test Data for Payments

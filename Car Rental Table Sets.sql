@@ -21,16 +21,16 @@ CREATE TABLE `user`
 );
 
 -- Test Data into User Table
-INSERT INTO `user` VALUES (123456789,'Babara','MacCaffrey','781-932-9754','0 Sage Terrace','Waltham','MA',2273);
-INSERT INTO `user` VALUES (987654321,'Ines','Brushfield','804-427-9456','14187 Commercial Trail','Hampton','VA',947);
-INSERT INTO `user` VALUES (320498176,'Freddi','Boagey','719-724-7869','251 Springs Junction','Colorado Springs','CO',2967);
-INSERT INTO `user` VALUES (410923874,'Ambur','Roseburgh','407-231-8017','30 Arapahoe Terrace','Orlando','FL',457);
-INSERT INTO `user` VALUES (589783429,'Clemmie','Betchley','123-456-7890','5 Spohn Circle','Arlington','TX',3675);
-INSERT INTO `user` VALUES (689888783,'Elka','Twiddell','312-480-8498','7 Manley Drive','Chicago','IL',3073);
-INSERT INTO `user` VALUES (123443127,'Ilene','Dowson','615-641-4759','50 Lillian Crossing','Nashville','TN',1672);
-INSERT INTO `user` VALUES (893701935,'Thacher','Naseby','941-527-3977','538 Mosinee Center','Sarasota','FL',205);
-INSERT INTO `user` VALUES (959038919,'Romola','Rumgay','559-181-3744','3520 Ohio Trail','Visalia','CA',1486);
-INSERT INTO `user` VALUES (193793010,'Levy','Mynett','404-246-3370','68 Lawn Avenue','Atlanta','GA',796);
+INSERT INTO `user` VALUES (123456789,'Babara10','Babara','MacCaffrey','781-932-9754','0 Sage Terrace','Waltham','MA',2273);
+INSERT INTO `user` VALUES (987654321,'hello10','Ines','Brushfield','804-427-9456','14187 Commercial Trail','Hampton','VA',947);
+INSERT INTO `user` VALUES (320498176,'123456789','Freddi','Boagey','719-724-7869','251 Springs Junction','Colorado Springs','CO',2967);
+INSERT INTO `user` VALUES (410923874,'32154651321','Ambur','Roseburgh','407-231-8017','30 Arapahoe Terrace','Orlando','FL',457);
+INSERT INTO `user` VALUES (589783429,'husadhlj','Clemmie','Betchley','123-456-7890','5 Spohn Circle','Arlington','TX',3675);
+INSERT INTO `user` VALUES (689888783,'afjaksjjs','Elka','Twiddell','312-480-8498','7 Manley Drive','Chicago','IL',3073);
+INSERT INTO `user` VALUES (123443127,'sjajajkdjl','Ilene','Dowson','615-641-4759','50 Lillian Crossing','Nashville','TN',1672);
+INSERT INTO `user` VALUES (893701935,'122333444555666666','Thacher','Naseby','941-527-3977','538 Mosinee Center','Sarasota','FL',205);
+INSERT INTO `user` VALUES (959038919,'AnimeisNotIt','Romola','Rumgay','559-181-3744','3520 Ohio Trail','Visalia','CA',1486);
+INSERT INTO `user` VALUES (193793010,'GymBrosForLife','Levy','Mynett','404-246-3370','68 Lawn Avenue','Atlanta','GA',796);
 
 -- Rental Request Table
 CREATE TABLE rental_request
@@ -50,7 +50,6 @@ INSERT INTO rental_request VALUES('DK5UBT29', 'Y');
 CREATE TABLE customer
 (
     c_id INT(9) NOT NULL,
-    c_password VARCHAR(16) NOT NULL,
     license_num VARCHAR(10) NOT NULL,
     request_id VARCHAR(8),
     FOREIGN KEY (c_id) REFERENCES `user`(ssn),
@@ -60,16 +59,16 @@ CREATE TABLE customer
 );
 
 -- Test Data for Customer Table
-INSERT INTO customer VALUES (123456789,'4RZC9LyJ','UMF4VFFVSH','JM7DUNUQ');
-INSERT INTO customer VALUES (320498176,'FhKHx4U6','GBEA9894WW','DK5UBT29');
+INSERT INTO customer VALUES (123456789,'UMF4VFFVSH','JM7DUNUQ');
+INSERT INTO customer VALUES (320498176,'GBEA9894WW','DK5UBT29');
 
 -- Customers who have not placed rental requests
-INSERT INTO customer VALUES (410923874,'Hr9EKNeo','D2HX8Q7HUZ','');
-INSERT INTO customer VALUES (589783429,'FAVz2Gkg','XJWLJRX6JX','');
-INSERT INTO customer VALUES (689888783,'87EPrCim','2DVXYCMBLF','');
-INSERT INTO customer VALUES (893701935,'Mb95Rvng','W64F5S7TWR','');
-INSERT INTO customer VALUES (959038919,'vrkVe7Mo','AZ7AAW26JX','');
-INSERT INTO customer VALUES (193793010,'ALkkR6dx','HFTGW9Y332','');
+INSERT INTO customer VALUES (410923874,'D2HX8Q7HUZ','');
+INSERT INTO customer VALUES (589783429,'XJWLJRX6JX','');
+INSERT INTO customer VALUES (689888783,'2DVXYCMBLF','');
+INSERT INTO customer VALUES (893701935,'W64F5S7TWR','');
+INSERT INTO customer VALUES (959038919,'AZ7AAW26JX','');
+INSERT INTO customer VALUES (193793010,'HFTGW9Y332','');
 
 -- Agency Table
 CREATE TABLE agency
@@ -98,8 +97,8 @@ CREATE TABLE staff
 );
 
 -- Staff Test Data
-INSERT INTO staff VALUES ('123443127','kLsTSEK7', '30000', '2019-01-11','1991-09-04','1');
-INSERT INTO staff VALUES (987654321,'YePuz6V5','28000','2019-02-12','1992-05-23','2');
+INSERT INTO staff VALUES ('123443127', '30000', '2019-01-11','1991-09-04','1');
+INSERT INTO staff VALUES (987654321,'28000','2019-02-12','1992-05-23','2');
 
 -- Payment Table
 CREATE TABLE payment

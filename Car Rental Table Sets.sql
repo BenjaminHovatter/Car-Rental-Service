@@ -7,6 +7,7 @@ USE car_rental_service;
 CREATE TABLE `user`
 (
     ssn INT(9) NOT NULL,
+    user_password VARCHAR(20) NOT NULL,
     f_name VARCHAR(15) NOT NULL,
     l_name VARCHAR(15) NOT NULL,
 	phone_number VARCHAR(20),
@@ -88,7 +89,6 @@ INSERT INTO agency VALUES ('2', '984 Little Street', 'Dallas', 'TX');
 CREATE TABLE staff 
 (
     s_id INT(9) NOT NULL,
-    s_password VARCHAR(16) NOT NULL,
     salary INT,
     start_date DATE, 
     birth_date DATE,

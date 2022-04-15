@@ -112,9 +112,9 @@ CREATE TABLE payment
     FOREIGN KEY(card_holder) REFERENCES customer(c_id),
     
     CONSTRAINT PK_Payment UNIQUE (transaction_id),
-    CONSTRAINT Check_Exp_Date CHECK (SELECT *
+    CONSTRAINT Check_Exp_Date CHECK (SELECT exp_date
 									FROM payment
-									WHERE exp_date > NOW();)
+									WHERE exp_date > NOW())
 );
 
 -- Test Data for Payments

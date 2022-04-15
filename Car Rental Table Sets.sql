@@ -106,15 +106,17 @@ CREATE TABLE payment
     transaction_id INT(8) NOT NULL AUTO_INCREMENT,
     card_num INT(16) NOT NULL,
     exp_date DATE NOT NULL,
-    card_holder VARCHAR(20) NOT NULL,
+    card_holder INT(9) NOT NULL,
     amount INT NOT NULL,
     PRIMARY KEY(transaction_id),
     FOREIGN KEY(card_holder) REFERENCES customer(c_id),
     
-    CONSTRAINT PK_Payment UNIQUE (transaction_id),
-    CONSTRAINT Check_Exp_Date CHECK (SELECT exp_date
-                                     FROM payment
-                                     WHERE exp_date > Current_Date())
+    CONSTRAINT PK_Payment UNIQUE (transaction_id)
+    /*
+	,CONSTRAINT Check_Exp_Date CHECK (SELECT exp_date
+									FROM payment
+									WHERE exp_date > NOW())
+                                    */
 );
 
 -- Test Data for Payments
@@ -156,12 +158,14 @@ CREATE TABLE rental_contract
     FOREIGN KEY (agency) REFERENCES agency (d_num),
     FOREIGN KEY (car_id) REFERENCES car_supplier(vin),
     
-    CONSTRAINT PK_Rental_Contract UNIQUE (contract_id),
-    CONSTRAINT Check_Car_and_Date CHECK ((SELECT R.car_id
+    CONSTRAINT PK_Rental_Contract UNIQUE (contract_id)
+    /*,
+    CONSTRAINT Check_Car_and_Date CHECK ((SELECT car_id
 										  FROM rental_contract AS R
 										  WHERE EXISTS(SELECT *
 													   FROM car_supplier AS C
 													   WHERE R.car_id = C.cs_id AND rc_start_date < rc_end_date)))
+                                                       */
 );
 
 -- Test Data for Rental Contracts

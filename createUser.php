@@ -1,3 +1,28 @@
+<!-- *** Update the HTML with the final front end product *** 
+
+The below HTML is for testing the PHP interface.   -->
+<html>
+<body>
+
+<html>
+   <body>
+      <form action = "<?php $_PHP_SELF ?>" method = "GET">
+         SSN: <input type = "text" name = "ssn" />
+         FirstName: <input type = "text" name = "firstname" />
+         LastName: <input type = "text" name = "lastname" />
+         PhoneNumber: <input type = "text" name = "phone" />
+         Street: <input type = "text" name = "street" />
+         City: <input type = "text" name = "city" />
+         State: <input type = "text" name = "state" />
+         Zip: <input type = "text" name = "zip" />
+         <input type = "submit" />
+      </form>    
+   </body>
+</html>
+
+</body>
+</html>
+
 <?php
 // Change these two the local database settings
 $servername = "localhost";

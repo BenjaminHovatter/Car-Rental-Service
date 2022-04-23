@@ -1,23 +1,5 @@
-<!-- *** Update the HTML with the final front end product *** 
-
-The below HTML is for testing the PHP interface.   -->
-<html>
-<body>
-
-<html>
-   <body>
-      <form action = "<?php $_PHP_SELF ?>" method = "GET">
-         Username: <input type = "text" name = "username" />
-         Password: <input type = "text" name = "password" />
-         <input type = "submit" />
-      </form>    
-   </body>
-</html>
-
-</body>
-</html>
-
 <?php
+header('Access-Control-Allow-Origin: *');
 // Change these two the local database settings
 $servername = "localhost";
 $username = "root";
@@ -51,4 +33,3 @@ if($result) {
 
 $stmt->close();
 $conn->close();
-?>

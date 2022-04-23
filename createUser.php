@@ -25,6 +25,7 @@ The below HTML is for testing the PHP interface.   -->
 </html>
 
 <?php
+header('Access-Control-Allow-Origin: *');
 // Change these two the local database settings
 $servername = "localhost";
 $username = "root";
@@ -55,8 +56,10 @@ if ($_GET["ssn"] && $_GET["firstname"] && $_GET["lastname"] && $_GET["phone"] &&
 }
 
 
-$stmt->execute();
-
+$status = $stmt->execute();
+if($status === false) {
+    var_dump($stmt->error);
+}
 echo "New records created successfully";
 
 $stmt->close();

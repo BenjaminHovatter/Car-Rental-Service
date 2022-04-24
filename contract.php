@@ -29,7 +29,7 @@ if ($_GET["contract_id"] && $_GET["total_price"] && $_GET["start_date"] && $_GET
 
 $stmt->execute();
 
-echo "New records created successfully";
+echo "New contract is created successfully";
 
 $stmt->close();
 $conn->close();

@@ -12,8 +12,11 @@ if ($conn->connect_error) {
     die("Connection Failed: ");//, $conn->connect_error);
 }
 
-$stmt = $conn->prepare("INSERT INTO `agency` (contract_id, total_price, start_date, end_date, agent_id, c_id) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt -> bind_param("isss", $contract_id, $total_price, $start_date, $end_date, $agent_id, $c_id);
+$stmt = $conn->prepare("INSERT INTO `rental_contract` (contract_id, price, rc_start_date, rc_end_date, agency, car_id, payment_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+if ( false===$stmt ) {
+    die('prepare() failed: ' . htmlspecialchars($conn->error));
+}
+$stmt -> bind_param("sissisi", $contract_id, $total_price, $start_date, $end_date, $agent_id, $c_id, $payment_id);
 
 // Change the variables to the element names on the front end
 if ($_GET["contract_id"] && $_GET["total_price"] && $_GET["start_date"] && $_GET["end_date"]
@@ -24,6 +27,7 @@ if ($_GET["contract_id"] && $_GET["total_price"] && $_GET["start_date"] && $_GET
     $end_date = $_GET['end_date'];
     $agent_id= $_GET['agent_id'];
     $c_id = $_GET['c_id'];
+    $payment_id = $_GET['payment_id'];
 }
 
 
